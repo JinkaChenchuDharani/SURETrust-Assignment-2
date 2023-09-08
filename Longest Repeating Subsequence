@@ -1,0 +1,37 @@
+//LONGEST REPEATING SUBSEQUENCE
+
+class Solution {
+	public:
+	   // int traverse(string str, int i,int j,vector<vector<int>> &dp)
+	   // {
+	   //     if(i>=str.length() || j>=str.length())
+	   //         return 0;
+	   //    if(dp[i][j] != -1) 
+	   //         return dp[i][j];
+	           
+	   //     if(i==j || str[i] != str[j])
+	   //     {
+	   //        return dp[i][j] = max(traverse(str,i+1,j,dp),traverse(str,i,j+1,dp));
+	   //     }
+    //         return dp[i][j] = 1+ traverse(str,i+1,j+1,dp);
+	   // }
+		int LongestRepeatingSubsequence(string str){
+		    // Code here
+		     vector<vector<int>> dp(str.length(),vector<int> (str.length(),0));
+		  //   int i=0,j=0;
+		  //   return traverse(str,i,j,dp);
+		     
+		     for(int i=str.size()-1;i>=0;i--)
+		     {
+		         for(int j=str.size()-1;j>=0;j--)
+		         {
+		             if(i==j || str[i] != str[j])
+		                dp[i][j] = max((i+1>=str.length() ? 0 : dp[i+1][j]),(j+1 >=str.length() ? 0 :dp[i][j+1]));
+		             else
+		                dp[i][j] = 1 + (i+1>=str.length() ? 0 : (j+1 >= str.length() ? 0 : dp[i+1][j+1]));
+		         }
+		     }
+		     return dp[0][0];
+		}
+
+};
